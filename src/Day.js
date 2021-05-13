@@ -1,14 +1,20 @@
 import React from "react";
 import { BrowserRouter as Router, useParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import displayMeal from "./Calendar";
+import Basket from "./backendMock/basket/Basket";
+import BasketProvider from "./backendMock/basket/BasketContext";
+import { useAuth } from "./AuthContext";
 
 export function Day() {
   let { day } = useParams();
+  const { data } = useAuth();
+  console.log(data);
 
   return (
-    <div>
+    <BasketProvider>
       <h1>{day}</h1>
-      <table class="table  table-striped">
+      {/* <table class="table  table-striped">
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -37,7 +43,8 @@ export function Day() {
             <td>@twitter</td>
           </tr>
         </tbody>
-      </table>
-    </div>
+      </table> */}
+      {/* {JSON.stringify()} */}
+    </BasketProvider>
   );
 }

@@ -1,0 +1,15 @@
+div.card > img {
+  min-height: 200px;
+  object-fit: cover;
+}
+
+li {
+  display: flex;
+  flex-direction: row;
+}
+.selectFood {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
