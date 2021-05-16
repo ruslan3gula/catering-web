@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-export const BasketContext = React.createContext();
 
-export default function BasketProvider({ children }) {
+export const BasketContext = React.createContext([]);
+export const BasketProvider = (props) => {
   const [basket, setBasket] = useState([]);
   return (
     <BasketContext.Provider value={[basket, setBasket]}>
-      {children}
+      {props.children}
     </BasketContext.Provider>
   );
-}
+};

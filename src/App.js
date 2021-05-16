@@ -4,7 +4,7 @@ import {
   Switch,
   Route,
   Link,
-  useParams,
+  useParams
 } from "react-router-dom";
 import { AuthProvider } from "./AuthContext";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -15,18 +15,26 @@ import { Day } from "./Day";
 import { Calendar } from "./Calendar";
 import Header from "./Header";
 import PrivateRoute from "./PrivateRoute";
+import { BasketProvider } from "./backendMock/basket/BasketContext";
+import { Basket } from "./backendMock/basket/Basket";
+
 export default function App() {
   return (
     <AuthProvider>
-      <Router>
-        <Header />
-        <Switch>
-          <PrivateRoute exact path="/" component={Calendar} />
-          <Route path="/login" component={Login} />
-          <Route path="/signup" component={Signup} />
-          <PrivateRoute path="/:day" component={Day} />
-        </Switch>
-      </Router>
+      <BasketProvider>
+        <Router>
+          <Header />
+          <Switch>
+            <PrivateRoute exact path="/">
+              <Basket />
+              <Calendar />
+            </PrivateRoute>
+            <Route path="/login" component={Login} />
+            <Route path="/signup" component={Signup} />
+            <PrivateRoute path="/:day" component={Day} />
+          </Switch>
+        </Router>
+      </BasketProvider>
     </AuthProvider>
   );
 }

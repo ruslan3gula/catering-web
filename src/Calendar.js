@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useAuth } from "./AuthContext";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { BasketContext } from "./backendMock/basket/BasketContext";
 
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./Calendar.css";
 
 export const displayMeal = (day, meal) =>
@@ -11,6 +12,17 @@ export const displayMeal = (day, meal) =>
 
 export function Calendar() {
   const { data } = useAuth();
+  const [basket, setBasket] = useContext(BasketContext);
+
+  const daysOfWeek = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday"
+  ];
 
   // const daysSinceBeginningOfWeek = new Date(Date.now()).getDay();
 
@@ -24,8 +36,12 @@ export function Calendar() {
   // }
   console.log("data", data);
 
-  const onFoodSelect = (e) => {
+  const onFoodSelect = (date, e) => {
+    const order = { id: date, meal: e.target.id };
     console.log(e.target.checked);
+
+    e.target.disabled = true;
+    setBasket((prevState) => [...prevState, order]);
   };
 
   return (
@@ -34,13 +50,16 @@ export function Calendar() {
 
       <div class="card-deck">
         {data.map((day) => {
+          const date = day.date;
           return (
-            <div class="card" style={{ margin: "2px" }} key={day.date}>
+            <div class="card" style={{ margin: "2px" }} key={date}>
               {day && <img src={day.pic} class="card-img-top" alt={day.pic} />}
 
               <div class="card-body">
                 <h5 class="card-title ">
-                  <Link to={`/${day}`}>{new Date(day.date).getDay()}</Link>
+                  <Link to={`/${day}`}>
+                    {daysOfWeek[new Date(day.date).getDay()]}
+                  </Link>
                 </h5>
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item">
@@ -48,21 +67,29 @@ export function Calendar() {
                       {displayMeal(day, "firstMeal")}
                       <input
                         type="checkbox"
-                        id="firstMealselect"
-                        onClick={onFoodSelect}
+                        id="firstMeal"
+                        onChange={(e) => onFoodSelect(date, e)}
                       />
                     </div>
                   </li>
                   <li class="list-group-item">
                     <div className="selectFood">
                       {displayMeal(day, "secondMeal")}
-                      <input type="checkbox" />
+                      <input
+                        type="checkbox"
+                        id="secondMeal"
+                        onChange={(e) => onFoodSelect(date, e)}
+                      />
                     </div>
                   </li>
                   <li class="list-group-item">
-                    <div className="selectFood">
+                    <div className="selectFoo{d">
                       {displayMeal(day, "thirdMeal")}
-                      <input type="checkbox" />
+                      <input
+                        type="checkbox"
+                        id="thirdMeal"
+                        onChange={(e) => onFoodSelect(date, e)}
+                      />
                     </div>
                   </li>
                 </ul>
