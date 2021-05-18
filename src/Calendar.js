@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 import { BasketContext } from "./backendMock/basket/BasketContext";
-
+import { BasketList } from "./BasketList";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Calendar.css";
 
@@ -12,8 +12,8 @@ export const displayMeal = (day, meal) =>
 
 export function Calendar() {
   const { data } = useAuth();
-  const [basket, setBasket] = useContext(BasketContext);
-
+  const [setBasket] = useContext(BasketContext);
+  const [checked] = useContext(BasketContext);
   const daysOfWeek = [
     "Monday",
     "Tuesday",
@@ -47,7 +47,6 @@ export function Calendar() {
   return (
     <div class="p-5">
       <h2>Calendar</h2>
-
       <div class="card-deck">
         {data.map((day) => {
           const date = day.date;
@@ -68,6 +67,7 @@ export function Calendar() {
                       <input
                         type="checkbox"
                         id="firstMeal"
+                        checked={checked}
                         onChange={(e) => onFoodSelect(date, e)}
                       />
                     </div>
@@ -98,6 +98,8 @@ export function Calendar() {
           );
         })}
       </div>
+
+      <BasketList />
     </div>
   );
 }

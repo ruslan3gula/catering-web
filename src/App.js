@@ -17,6 +17,7 @@ import Header from "./Header";
 import PrivateRoute from "./PrivateRoute";
 import { BasketProvider } from "./backendMock/basket/BasketContext";
 import { Basket } from "./backendMock/basket/Basket";
+import { BasketList } from "./BasketList";
 
 export default function App() {
   return (

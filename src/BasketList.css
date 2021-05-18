@@ -1,0 +1,16 @@
+.sidenav {
+  height: 100%;
+  width: 10px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgb(230, 191, 191);
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.open {
+  width: 250px;
+}
