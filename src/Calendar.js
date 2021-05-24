@@ -12,7 +12,7 @@ export const displayMeal = (day, meal) =>
 
 export function Calendar() {
   const { data } = useAuth();
-  const [setBasket] = useContext(BasketContext);
+  const [basket, setBasket] = useContext(BasketContext);
   const [checked] = useContext(BasketContext);
   const daysOfWeek = [
     "Monday",
@@ -34,7 +34,10 @@ export function Calendar() {
   // for (let i = 1; i < 8; i++) {
   //   currentWeek.push(new Date(FirstDateOfCurrentWeek));
   // }
-  console.log("data", data);
+  // console.log(
+  //   "setBasket",
+  //   setBasket((rs) => rs)
+  // );
 
   const onFoodSelect = (date, e) => {
     const order = { id: date, meal: e.target.id };
